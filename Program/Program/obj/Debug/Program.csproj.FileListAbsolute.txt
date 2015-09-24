@@ -1,0 +1,5 @@
+C:\Games\Repos\New\Program\Program\bin\Debug\Program.exe.config
+C:\Games\Repos\New\Program\Program\bin\Debug\Program.exe
+C:\Games\Repos\New\Program\Program\bin\Debug\Program.pdb
+C:\Games\Repos\New\Program\Program\obj\Debug\Program.exe
+C:\Games\Repos\New\Program\Program\obj\Debug\Program.pdb
