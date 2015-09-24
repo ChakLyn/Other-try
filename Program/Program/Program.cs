@@ -98,9 +98,82 @@ namespace Program
                     CountOfNewStr += 1;
                 }
             }
-           
+            ////////////////////////////////////
+            int[] CountOfSpaces = new int[CountOfNewStr];
+            // сколько пробелов нужно для разделения 
+            int tempi = 1;
+            for (int i = 0; i < CountOfSpaces.Length; i++)
+            {
+                int length = n;
+                for (int z = 0; z < CountInStr[i]; z++)
+                {
+                    length -= parts[tempi].Length; // от длины строк отнимаем длины слов
+                    tempi++;
+                }
+                CountOfSpaces[i] = length;         // свободное место на пробелы
+                Console.WriteLine("Count of spaces {0}", CountOfSpaces[i]);
+            }
+            ////////////////////////////////строки пробелов
+            int tempz = 1;
+            // запись новой строки
+            using (StreamWriter Write = new StreamWriter(@"C:\Games\Repos\New\Program\Program\out.txt"))
+            {
+                for (int i = 0; i < CountOfNewStr; i++)
+                {
+                    if (CountInStr[i] == 1)         // если в строке только 1 слово
+                    {
+                        Write.Write(parts[tempz]);
+                        tempz++;
+                    }
+                    else if (CountInStr[i] > 1)     // больше 1 слова
+                    {
+                        int tempRaz = CountInStr[i] - 1;    // временная переменная к-ства мест между словами
+                        int tempS = CountOfSpaces[i];       // временная переменная к-ства пробелов на данной строке
+                        if (tempS % tempRaz == 0 && tempRaz != 1)// если можно поровну разставить пробелы между словами и мест между словами не 1
+                        {
+                            for (int l = 0; l < CountInStr[i]; l++)
+                            {
+                                Write.Write(parts[tempz]);
+                                tempz++;
+                                Write.Write(" ");
+                            }
 
-        
+                        }
+                        else
+                        {
+                            for (int l = 0; l < CountInStr[i]; l++)
+                            {
+
+                                if (tempRaz == 1)// если осталось 1 место для разстановки
+                                {
+                                    Write.Write(parts[tempz]);
+                                    tempz++;
+                                    for (int v = 0; v < tempS; v++)
+                                    {
+                                        Write.Write(" ");
+                                    }
+                                    Write.Write(parts[tempz]);
+                                    tempz++;
+                                    break;
+                                }
+                                else // если больше мест
+                                {
+                                    Write.Write(parts[tempz]);
+                                    tempz++;
+                                    for (int v = 0; v < (tempS / tempRaz) - 1; v++)
+                                    {
+                                        Write.Write(" ");
+                                    }
+                                    tempS -= (tempS / tempRaz) - 1;// уменьшаем к-ство оставшихся пробелов
+                                    tempRaz--;                     // уменьшаем к-ство отсавшихся мест для разстановки
+                                }
+
+                            }
+                        }
+                    }
+                    Write.WriteLine();// закончить строку
+                }
+            }    
         }
     }
 }
